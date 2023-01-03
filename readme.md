@@ -16,7 +16,7 @@
 ```
 　要素に指定された属性値に基づき、[Math.random()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random) が返す値を[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)に設定します。カスタムプロパティは``--dice-*`` （``*`` は属性 *[number](#number)* に基づく任意の数）として設定されますが、グローバル属性 [id](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/id) や属性 [prefix](#prefix) によって任意の名前を指定することもできます。
 
-　カスタムプロパティは *[\<math-random\>](#math-random-乱数埋め込み要素)* が文書に接続されたり、対応する属性が変化した際に更新されます。一度設定されたカスタムプロパティは任意に個別で削除しない限り残留します。
+　カスタムプロパティは *[\<math-random\>](#math-random-乱数設定要素)* が文書に接続されたり、対応する属性が変化した際に更新されます。一度設定されたカスタムプロパティは任意に個別で削除しない限り残留します。
 
 ## 属性
 ### exclusive

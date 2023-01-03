@@ -5,12 +5,12 @@ class MathRandom extends HTMLElement {
 		this.tagName = 'math-random',
 		
 		this.int = 0,
-		this.min = 0,
 		this.max = 1,
+		this.min = 0,
 		this.number = 1,
 		this.prefix = 'dice',
 		
-		this.__observedAttributes = [ 'number', 'prefix' ];
+		this.__observedAttributes = [ 'int', 'max', 'min', 'number', 'prefix' ];
 		
 	}
 	static get observedAttributes() {
