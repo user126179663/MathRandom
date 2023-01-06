@@ -4,13 +4,16 @@ class MathRandom extends HTMLElement {
 		
 		this.tagName = 'math-random',
 		
-		this.int = 0,
+		this.gt = 1,
+		this.gv = null,
+		this.ls = 0,
+		this.lv = null,
 		this.max = 1,
 		this.min = 0,
 		this.number = 1,
 		this.prefix = 'dice',
 		
-		this.__observedAttributes = [ 'int', 'max', 'min', 'number', 'prefix' ];
+		this.__observedAttributes = [ 'gt', 'gv', 'int', 'lt', 'lv', 'max', 'min', 'number', 'prefix' ];
 		
 	}
 	static get observedAttributes() {
@@ -37,19 +40,22 @@ class MathRandom extends HTMLElement {
 	
 	dice() {
 		
-		const { ceil, floor, random } = Math, { exclusive, int, number, prefix, style } = this,
-				l = number > int ? number : int, ex = exclusive ? 0 : 1, pi = prefix + 'i-';
-		let i, v,vi,range,rangeI, { max, min } = this, mini, maxi;
+		const { ceil, floor, random } = Math,
+				{ exclusive, gt, gv, int, ls, lv, number, prefix, style } = this,
+				ex = int && !exclusive;
+		let i,v, range, { max, min } = this;
 		
-		i = -1, min > max && (max = min), int && (mini = ceil(min), maxi = floor(max)),
-		range = max - min, rangeI = maxi - mini + ex;
-		while (++i < l)	i < number && style.setProperty(prefix + i, (v = random()) * range + min),
-								i < int && style.setProperty(pi + i, floor(v * rangeI + mini)),
-								i ||
-									(
-										number && style.setProperty(prefix.slice(0,-1), style.getPropertyValue(prefix + i)),
-										int && style.setProperty(pi.slice(0,-1), style.getPropertyValue(pi + i))
-									);
+		i = -1, min > max && (max = min), int && (min = ceil(min), max = floor(max)), range = max - min + ex;
+		while (++i < number)	v = random() * range + min,
+									int && (v = floor(v)),
+									ls === null ?
+										gt === null ||
+											(gt <= v ? gv === null || (v = gv) : lv === null || (v = lv)) :
+										v <= ls ?
+											lv === null || (v = lv) :
+											gv === null || (gt === null ? (v = gv) : gt <= v && (v = gv)),
+									style.setProperty(prefix + i, v),
+									i || style.setProperty(prefix.slice(0,-1), v);
 		
 	}
 	
@@ -63,18 +69,62 @@ class MathRandom extends HTMLElement {
 		this.toggleAttribute('exclusive', !!v);
 		
 	}
+	get gt() {
+		
+		const v = this.hasAttribute('gt') ? +this.getAttribute('gt') : null, { ls } = this;
+		
+		return v === null ? v : Math.max(Number.isNaN(v) ? MathRandom.gt : v, ls);
+		
+	}
+	set gt(v) {
+		
+		this.setAttribute('gt', v);
+		
+	}
+	get gv() {
+		
+		const v = this.hasAttribute('gv') ? +this.getAttribute('gv') : null;
+		
+		return v === '' || v === null ? null : Number.isNaN(v) ? MathRandom.gv : v;
+		
+	}
+	set gv(v) {
+		
+		this.setAttribute('gv', v);
+		
+	}
 	get int() {
 		
-		let v0;
-		const v =	(v0 = this.getAttribute('int')) === null ? MathRandom.int :
-							v0 === '' ? this.hasAttribute('number') ? this.number : 1 : parseInt(v0);
-		
-		return Number.isNaN(v) || v < 0 ? MathRandom.int : v;
+		return this.hasAttribute('int');
 		
 	}
 	set int(v) {
 		
-		this.setAttribute('int', v);
+		this.toggleAttribute('int', !!v);
+		
+	}
+	get ls() {
+		
+		const v = this.hasAttribute('ls') ? +this.getAttribute('ls') : null;
+		
+		return v !== null && Number.isNaN(v) ? MathRandom.ls : v;
+		
+	}
+	set ls(v) {
+		
+		this.setAttribute('ls', v);
+		
+	}
+	get lv() {
+		
+		const v = this.hasAttribute('lv') ? +this.getAttribute('lv') : null;
+		
+		return v === null || v === '' ? null : Number.isNaN(v) ? MathRandom.lv : v;
+		
+	}
+	set lv(v) {
+		
+		this.setAttribute('lv', v);
 		
 	}
 	get max() {
