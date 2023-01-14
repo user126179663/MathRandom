@@ -20,9 +20,9 @@
 
 ## 属性
 ### exclusive
-　論理属性で、指定されていると、属性 *[int](#int)* が指定されている時に、設定される整数の乱数の範囲を、属性 *[max](#max)* に指定された整数化された値を含まないものにします。例えば ``int="1" min="0" max="5"`` の時、既定であれば設定される整数の[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)の取り得る範囲は ``0`` から ``5`` ですが、この属性を指定していると ``0`` から ``4`` になります。既定の動作は人間にとって直感的で、この属性を指定した時の動作は [Math.random()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random) が返す乱数をそのまま使うためプログラミング的です。
+　論理属性で、指定されていると、属性 *[int](#int)* が指定されている時に、設定される整数の乱数の範囲を、属性 *[max](#max)* に指定された整数化された値を含まないものにします。例えば ``int min="0" max="5"`` の時、既定であれば設定される整数の[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)の取り得る範囲は ``0`` から ``5`` ですが、この属性を指定していると ``0`` から ``4`` になります。既定の動作は人間にとって直感的で、この属性を指定した時の動作は [Math.random()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random) が返す乱数をそのまま使うためプログラミング的です。
 
-　この属性は属性 *[number](#number)* に基づいて設定されるカスタムプロパティには影響しません。
+　この属性は *[number](#number)* に基づいて設定されるカスタムプロパティには影響しません。
 ### gt
 　乱数がこの属性に指定された値と等しいか、それより大きい場合、設定される[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)の値をローカル属性 *[gv](#gv)* に指定された値にします。既定値は ``1`` です。未指定の場合、 *[ls](#ls)* と *[gv](#gv)* が指定されていれば、乱数が *[gt](#gt)* より大きい時にカスタムプロパティの値を *[gv](#gv)* にします。それらが指定されていない時は比較は行なわれません。
 
@@ -44,7 +44,7 @@
 ### number
 　指定した自然数(0 を含む)の数だけ [Math.random()](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Math/random) が返す乱数を値とする[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)を設定します。既定値は ``1`` です。自然数と認識できない値を指定した場合、既定値が使われます。
 
-　``--dice-i-0`` のエイリアスとして ``--dice-i`` が設定されます。
+　``--dice-0`` のエイリアスとして ``--dice`` が設定されます。
 ### prefix
 　[カスタムプロパティ](https://developer.mozilla.org/ja/docs/Web/CSS/--*)の接頭辞を指定します。既定値は ``dice`` です。未指定かつグローバル属性 [id](https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/id) が設定されている時は、接頭辞として id が示す値が用いられます。空文字ないし論理属性として指定すると、id が指定されていても既定値を接頭辞に強制します。
 ```html
